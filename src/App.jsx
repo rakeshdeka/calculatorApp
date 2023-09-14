@@ -10,23 +10,21 @@ function App() {
   console.log(`useState: ${input}`)
 
   const handleClick = (item) => {
+
     if (item === '=') {
-      console.log(`item ${input}`)
-      try {
-        const calculatedResult = eval(input);
-        setResult(calculatedResult);
-        setInput('');
-      } catch (error) {
-        setResult('Error');
-      }
+      setResult((eval(input)));
+      setInput('');
     } else if (item === 'C') {
 
       setInput('');
       setResult('');
     } else {
+      console.log(`item ${item}`);
+
 
       setInput((prevInput) => prevInput + item);
       console.log(`prev :${input}`)
+
     }
   };
 
