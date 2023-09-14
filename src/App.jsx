@@ -2,14 +2,33 @@
 
 import { useState } from 'react';
 import './App.css'
+import { items } from './constants';
 
 function App() {
-  const [values, setValues] = useState('')
-  const items = [7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+']
-  const handleClick = (e) => {
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
+  console.log(`useState: ${input}`)
 
+  const handleClick = (item) => {
+    if (item === '=') {
+      console.log(`item ${input}`)
+      try {
+        const calculatedResult = eval(input);
+        setResult(calculatedResult);
+        setInput('');
+      } catch (error) {
+        setResult('Error');
+      }
+    } else if (item === 'C') {
 
-  }
+      setInput('');
+      setResult('');
+    } else {
+
+      setInput((prevInput) => prevInput + item);
+      console.log(`prev :${input}`)
+    }
+  };
 
   return (
     <>
@@ -18,7 +37,11 @@ function App() {
 
         <div className="main-input">
           <input
-            type="number" placeholder="0"></input>
+            type="text"
+            placeholder="0"
+            readOnly
+            value={input}
+          />
 
         </div>
         <div className="all-btn">
@@ -27,6 +50,7 @@ function App() {
           ))}
 
         </div>
+        <p> Result: {result}</p>
       </div>
 
     </>
